@@ -1,15 +1,15 @@
 a {
-	color: mediumvioletred;
+    color: mediumvioletred;
 }
 
-	a:hover {
-		background-color: pink;
-	}
+a:hover {
+    background-color: pink;
+}
 
 * {
-	font-family: sans-serif;
+    font-family: sans-serif;
 }
 
 #title {
-	color: deeppink;
+    color: darkorchid;
 }
