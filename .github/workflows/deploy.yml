@@ -34,7 +34,7 @@ jobs:
     # Runs a voice data copy
     - name: Copy Resouces
       run: |
-        rsync --delete ./voices ./target --exclude "./voices/*.json"
+        rsync -av --exclude "*.json" --delete ./voices ./target
 
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
