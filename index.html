@@ -1,17 +1,222 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
-	<head>
-		<meta charset="UTF-8">
-		<title>セフィラ・スゥボタン</title>
-	</head>
-	<body>
-		<h1>セフィラ・スゥボタン</h1>
-		<p>html出来ないマン</p>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <link rel="icon" href="./favicon.png" />
 
-		<audio>
-			<source src="./voices/はじめましての自己紹介.mp3">
-			<source src="./voices/はじめましての自己紹介.m4a">
-		</audio>
+    <title>セフィラ・スゥボタン</title>
 
-	</body>
+    <!-- 開発用 -->
+    <!--	<script src="https://unpkg.com/vue"></script>-->
+    <!-- 本番用 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+    <script src="https://unpkg.com/element-ui"></script>
+    <script src="./bundle.js"></script>
+    <script>
+        let { Tweet } = require("vue-tweet-embed");
+        Vue.component("Tweet", Tweet);
+    </script>
+    <script src="./index.js"></script>
+    <script src="https://www.youtube.com/player_api"></script>
+
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <link rel="stylesheet" type="text/css" href="site.css" />
+
+    <style type="text/css">
+        .footer {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            height: auto;
+            width: auto;
+            margin: 0.5em;
+            background-color: snow;
+            border-color: lightpink;
+            border-width: medium;
+            border-style: solid;
+        }
+
+        .box26 {
+            position: relative;
+            margin: 2em 0;
+            padding: 0.5em 1em;
+            border: solid 3px lightpink;
+            border-radius: 8px;
+        }
+
+            .box26 .box-title {
+                position: absolute;
+                display: inline-block;
+                top: -13px;
+                left: 10px;
+                padding: 0 9px;
+                line-height: 1;
+                font-size: 19px;
+                background: #FFF;
+                color: hotpink;
+                font-weight: bold;
+            }
+
+            .box26 p {
+                margin: 0;
+                padding: 0;
+            }
+
+        #ytpcontainer iframe {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body onload="init()">
+	<div style="padding: 0 0.5em;">
+		<h1 id="title">セフィラ・スゥボタン α</h1>
+		<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-dnt="true" data-show-count="false">Tweet</a>
+		<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+	</div>
+	<div id="app">
+		<el-container>
+			<el-header style="height: unset; padding: 0.5em;">
+				<div class="box26">
+					<span class="box-title">お知らせ</span>
+					<p>
+						<h3>イベント情報</h3>
+						<div>
+							<ul>
+								<li>
+									<h4>
+										<span>9999/99/99(X) TODO</span><br />
+									</h4>
+									<ul>
+										<li>
+											<span>
+												TODO
+											</span>
+											<br />
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+						<br />
+						最終更新日時: {{ lastModified }} <br />
+						<a href="https://github.com/umineko1996/voicebutton/commits/master">簡易更新履歴</a>
+					</p>
+				</div>
+			</el-header>
+			<el-main style="padding: 0.5em;">
+				<el-select v-model="selectedGrouping">
+					<el-option key="category" label="カテゴリごとにグループ化" value="category"></el-option>
+					<el-option key="archive" label="アーカイブ(動画)ごとにグループ化" value="archive"></el-option>
+					<el-option key="count" label="ボタンの再生回数ごとにグループ化" value="count"></el-option>
+				</el-select>
+				<el-select v-model="filter">
+					<el-option key="none" label="フィルターなし" value="none"></el-option>
+					<el-option key="favorite" label="お気に入りのみ" value="favorite"></el-option>
+				</el-select>
+				<div v-for="[key, tracks] in orderedTracks">
+					<template v-if="selectedGrouping == 'category'">
+						<h2>{{ key }}</h2>
+					</template>
+					<template v-if="selectedGrouping == 'archive' && tracks.length != 0">
+						<template v-if="archiveInfo[key] != undefined">
+							<template v-if="archiveInfo[key].url != undefined">
+								<h2>
+									<a v-bind:href="archiveInfo[key].url">{{ archiveInfo[key].title }}</a>
+								</h2>
+							</template>
+							<template v-if="archiveInfo[key].url == undefined">
+								<h2>{{ archiveInfo[key].title }}</h2>
+							</template>
+							<p v-if="archiveInfo[key].date != undefined">配信日: {{ archiveInfo[key].date }}</p>
+						</template>
+						<template v-if="archiveInfo[key] == undefined">
+							<h2>{{ key }}</h2>
+						</template>
+					</template>
+					<template v-if="selectedGrouping == 'count'">
+						<h2>{{key}}回</h2>
+					</template>
+					<play-button v-for="e in tracks" v-bind:track="e" v-bind:key="e.title" v-on:play="playButtonClicked" style="margin: 0.25em;" />
+				</div>
+				<div v-if="orderedTracks.length == 0">
+					該当するボタンがありません。
+				</div>
+				<player ref="player" v-bind:volume="volume"></player>
+			</el-main>
+			<el-footer class="footer" style="padding: 0; height: initial; width: 20em;">
+				<el-row style="margin: 0.5em;">
+					<youtube-player ref="ytplayer"></youtube-player>
+				</el-row>
+				<el-row style="margin: 0.5em;">
+					<el-col :span="24">
+						<div v-if="track.id != null">
+							<favorite-button v-bind:favorited="isFavorited" v-on:clicked="favoriteButtonClicked"></favorite-button>
+							<a v-bind:href="track.source" target="_blank">{{ track.title }}</a>
+						</div>
+					</el-col>
+				</el-row>
+				<el-row style="margin: 0.5em;">
+					<el-col :span="16">
+						<el-slider v-on:change="volumeChanged" v-model="volume" v-bind:min="0.0" v-bind:max="1.0" v-bind:step="0.01"></el-slider>
+					</el-col>
+					<el-col :span="8" style="text-align:center;">
+						<stop-button v-on:stop="stopButtonClicked"></stop-button>
+					</el-col>
+				</el-row>
+			</el-footer>
+		</el-container>
+	</div>
+	<hr />
+	<div style="padding: 0 1em;">
+		<div style="display: flex; flex-wrap: wrap; flex-direction: row;">
+			<div style="max-width: 40em;">
+				<p>
+					このページはセフィラ・スゥちゃんの<span style="color: red; font-weight: bold;">非</span>公式ファンサイトです。
+				</p>
+				<p>
+					このサイトは<a href="https://tomaributton.azurewebsites.net/">兎鞠まりボタン</a>のソースを使用して作成されたプロトタイプです<br />
+				</p>
+				<p>不具合の報告はセフィラ・スゥちゃんご本人ではなく<a href="#contact">下記の連絡先</a>までお願いします。</p>
+				<p>
+					<h2>使い方</h2>
+					<ul>
+						<li>右下のプレイヤーにあるスライダーで音量を調節し、ボタンをクリックして音声を再生します。</li>
+						<li>とめるボタンをクリックすると音声が止まります。</li>
+						<li>タイトル部分をクリックすると音声の切り抜き元の動画に飛びます。</li>
+					</ul>
+				</p>
+				<p>
+					<h2>更新履歴</h2>
+					<ul>
+						<li>TODO</li>
+					</ul>
+				</p>
+				<p>
+					<h2>リンク</h2>
+					<ul>
+						<li>TODO</a></li>
+					</ul>
+				</p>
+				<p>
+					<h2>オマージュ元と他のボタンサイトさま</h2>
+					<ul>
+						<li><a href="https://tomaributton.azurewebsites.net/">兎鞠まりボタン</a><li>
+					</ul>
+				</p>
+				<p>
+					<h2 id="contact">連絡先</h2>
+					苦情・リクエスト・不具合の報告などはこちらまでお願いします。<br />
+					twitter: <a href="https://twitter.com/umineko1996">@umineko1996</a>
+				</p>
+			</div>
+			<div style="max-width: 40em;">
+				<a class="twitter-timeline" data-height="700" data-dnt="true" href="https://twitter.com/SephiraSu?ref_src=twsrc%5Etfw">Tweets by Sephira_Su</a>
+				<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+			</div>
+		</div>
+	</div>
+</body>
 </html>

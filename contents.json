@@ -1,0 +1,24 @@
+{
+  "soundRoot": "voices/",
+  "archiveInfo": {
+    "YT": null
+  },
+  "tracks": [
+    {
+      "title": "はじめましての自己紹介",
+      "path": "はじめましての自己紹介.m4a",
+      "tags": [
+        "自己紹介"
+      ],
+      "source": "https://www.youtube.com/watch?v=48pG3IFnxak"
+    },
+    {
+      "title": "特技はもちろん占いです！",
+      "path": "特技はもちろん占いです！.m4a",
+      "tags": [
+        "自己紹介"
+      ],
+      "source": "https://www.youtube.com/watch?v=48pG3IFnxak"
+    }
+  ]
+}
