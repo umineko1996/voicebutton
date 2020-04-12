@@ -16,6 +16,7 @@ type (
 		Path   string   `json:"path"`
 		Tags   []string `json:"tags"`
 		Source string   `json:"source"`
+		ID     int      `json:"id"`
 	}
 
 	// CAUTION: jsが扱うデータ形式と違う
@@ -25,7 +26,7 @@ type (
 
 	YoutubeInfo struct {
 		Title string `json:"title"`
-		Url   string `json:"url"`
+		URL   string `json:"url"`
 		Date  string `json:"date"`
 	}
 
@@ -38,7 +39,7 @@ type (
 
 const (
 	rootDir = "voices/"
-	outJson = "target/contents.json"
+	outJSON = "target/contents.json"
 )
 
 func main() {
@@ -50,17 +51,20 @@ func main() {
 }
 
 func run() error {
-	trackFilePaths, err := getTrackJsonFilePaths()
+	trackFilePaths, err := getTrackJSONFilePaths()
 	if err != nil {
 		return err
 	}
 
+	cnt := 0
 	tracks := []*Track{}
 	for _, filepath := range trackFilePaths {
-		track, err := readTrackJsonData(filepath)
+		track, err := readTrackJSONData(filepath)
 		if err != nil {
 			return err
 		}
+		cnt++
+		track.ID = cnt
 		tracks = append(tracks, track)
 	}
 
@@ -79,7 +83,7 @@ func run() error {
 	jsonData := bytes.NewBuffer([]byte{})
 	json.Indent(jsonData, buf, "", "  ")
 
-	f, err := os.Create(outJson)
+	f, err := os.Create(outJSON)
 	if err != nil {
 		return err
 	}
@@ -91,7 +95,7 @@ func run() error {
 }
 
 // カレントディレクトリの voices 以下のjsonファイル一覧を返却する
-func getTrackJsonFilePaths() ([]string, error) {
+func getTrackJSONFilePaths() ([]string, error) {
 	cd, err := os.Getwd()
 	if err != nil {
 		return nil, err
@@ -99,7 +103,7 @@ func getTrackJsonFilePaths() ([]string, error) {
 	return filepath.Glob(filepath.Join(cd, rootDir, "*.json"))
 }
 
-func readTrackJsonData(path string) (*Track, error) {
+func readTrackJSONData(path string) (*Track, error) {
 	f, err := os.Open(path)
 	if err != nil {
 		return nil, err
