@@ -10,7 +10,8 @@
       "tags": [
         "自己紹介"
       ],
-      "source": "https://www.youtube.com/watch?v=48pG3IFnxak"
+      "source": "https://www.youtube.com/watch?v=48pG3IFnxak",
+      "id": 1
     },
     {
       "title": "ばいばーい",
@@ -18,7 +19,8 @@
       "tags": [
         "ヤンデレ"
       ],
-      "source": "https://www.youtube.com/watch?v=TbGs-OOGJQ0"
+      "source": "https://www.youtube.com/watch?v=TbGs-OOGJQ0",
+      "id": 2
     },
     {
       "title": "特技はもちろん占いです！",
@@ -26,7 +28,8 @@
       "tags": [
         "自己紹介"
       ],
-      "source": "https://www.youtube.com/watch?v=48pG3IFnxak"
+      "source": "https://www.youtube.com/watch?v=48pG3IFnxak",
+      "id": 3
     }
   ]
 }
