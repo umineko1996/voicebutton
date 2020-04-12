@@ -1,0 +1,4 @@
+$ npm init
+$ npm install vue-tweet-embed
+$ npm install  browserify
+$ browserify -r ./app.js:vue-tweet-embed -o bundle.js
