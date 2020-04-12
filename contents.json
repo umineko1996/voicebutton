@@ -5,13 +5,22 @@
   },
   "tracks": [
     {
+      "title": "はいよ！",
+      "path": "はいよ！.mp3",
+      "tags": [
+        "返事"
+      ],
+      "source": "https://www.youtube.com/watch?v=MJLF87S7gjs",
+      "id": 1
+    },
+    {
       "title": "はじめましての自己紹介",
       "path": "はじめましての自己紹介.mp3",
       "tags": [
         "自己紹介"
       ],
       "source": "https://www.youtube.com/watch?v=48pG3IFnxak",
-      "id": 1
+      "id": 2
     },
     {
       "title": "ばいばーい",
@@ -20,7 +29,7 @@
         "ヤンデレ"
       ],
       "source": "https://www.youtube.com/watch?v=TbGs-OOGJQ0",
-      "id": 2
+      "id": 3
     },
     {
       "title": "特技はもちろん占いです！",
@@ -29,7 +38,7 @@
         "自己紹介"
       ],
       "source": "https://www.youtube.com/watch?v=48pG3IFnxak",
-      "id": 3
+      "id": 4
     }
   ]
 }
