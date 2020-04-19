@@ -7,6 +7,11 @@
       "title": "【Fortune×VTuber!?】セフィラ・スゥ誕生の巻【自己紹介】_#1",
       "url": "https://www.youtube.com/watch?v=48pG3IFnxak"
     },
+    "YT:=--DL2Us87uo": {
+      "date": "2019/11/04",
+      "title": "【17,500人記念枠】Pさんとお肉をかけた真剣勝負!?の巻【第130回せふぃらいぶ_占い師VTuber】",
+      "url": "https://www.youtube.com/watch?v=--DL2Us87uo"
+    },
     "YT:MJLF87S7gjs": {
       "date": "2020/03/24",
       "title": "【リングフィット アドベンチャー#10】朝活のススメ9日目の巻【第244回せふぃらいぶ_占い師VTuber】",
@@ -15,13 +20,22 @@
   },
   "tracks": [
     {
+      "title": "なんだこれは～馬鹿にされている！",
+      "path": "なんだこれは～馬鹿にされている！.mp3",
+      "tags": [
+        "煽られ"
+      ],
+      "source": "https://www.youtube.com/watch?v=--DL2Us87uo\u0026t=243s",
+      "id": 1
+    },
+    {
       "title": "はいよ！",
       "path": "はいよ！.mp3",
       "tags": [
         "返事"
       ],
       "source": "https://www.youtube.com/watch?v=MJLF87S7gjs",
-      "id": 1
+      "id": 2
     },
     {
       "title": "はじめましての自己紹介",
@@ -30,7 +44,7 @@
         "自己紹介"
       ],
       "source": "https://www.youtube.com/watch?v=48pG3IFnxak",
-      "id": 2
+      "id": 3
     },
     {
       "title": "ばいばーい",
@@ -39,7 +53,7 @@
         "ヤンデレ"
       ],
       "source": "https://www.youtube.com/watch?v=TbGs-OOGJQ0",
-      "id": 3
+      "id": 4
     },
     {
       "title": "特技はもちろん占いです！",
@@ -48,7 +62,7 @@
         "自己紹介"
       ],
       "source": "https://www.youtube.com/watch?v=48pG3IFnxak",
-      "id": 4
+      "id": 5
     }
   ]
 }
