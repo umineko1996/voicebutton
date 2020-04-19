@@ -68,6 +68,10 @@ func run() error {
 		tracks = append(tracks, track)
 	}
 
+	// TODO( ) tracksをタグでソートするようにする。
+	// 現在の実装だと、filepathで上に来るファイルに含まれるタグが上に来るため、
+	// 新しいボイスが増えるたびにタグの順番が変わる可能性がある。
+
 	// アーカイブ情報の取得
 	archiveInfo, err := readArchiveInfoJSONData(archiveJSON)
 	if err != nil {
