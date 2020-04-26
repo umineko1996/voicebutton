@@ -20,21 +20,21 @@
   },
   "tracks": [
     {
+      "title": "ばいばーい",
+      "path": "ばいばーい.mp3",
+      "tags": [
+        "ヤンデレ"
+      ],
+      "source": "https://www.youtube.com/watch?v=TbGs-OOGJQ0",
+      "id": 1
+    },
+    {
       "title": "なんだこれは～馬鹿にされている！",
       "path": "なんだこれは～馬鹿にされている！.mp3",
       "tags": [
         "煽られ"
       ],
       "source": "https://www.youtube.com/watch?v=--DL2Us87uo\u0026t=243s",
-      "id": 1
-    },
-    {
-      "title": "はいよ！",
-      "path": "はいよ！.mp3",
-      "tags": [
-        "返事"
-      ],
-      "source": "https://www.youtube.com/watch?v=MJLF87S7gjs",
       "id": 2
     },
     {
@@ -47,21 +47,21 @@
       "id": 3
     },
     {
-      "title": "ばいばーい",
-      "path": "ばいばーい.mp3",
-      "tags": [
-        "ヤンデレ"
-      ],
-      "source": "https://www.youtube.com/watch?v=TbGs-OOGJQ0",
-      "id": 4
-    },
-    {
       "title": "特技はもちろん占いです！",
       "path": "特技はもちろん占いです！.mp3",
       "tags": [
         "自己紹介"
       ],
       "source": "https://www.youtube.com/watch?v=48pG3IFnxak",
+      "id": 4
+    },
+    {
+      "title": "はいよ！",
+      "path": "はいよ！.mp3",
+      "tags": [
+        "返事"
+      ],
+      "source": "https://www.youtube.com/watch?v=MJLF87S7gjs",
       "id": 5
     }
   ]
