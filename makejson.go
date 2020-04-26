@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"sort"
 )
 
 type (
@@ -18,6 +19,8 @@ type (
 		Source string   `json:"source"`
 		ID     int      `json:"id"`
 	}
+
+	Tracks []*Track
 
 	YoutubeInfo struct {
 		Title string `json:"title"`
@@ -30,9 +33,29 @@ type (
 		Root    string `json:"soundRoot"`
 		// MEMO: 他ファイルで定義されたJSONデータを読み込んで、セットする
 		Archive interface{} `json:"archiveInfo"`
-		Tracks  []*Track    `json:"tracks"`
+		Tracks  Tracks      `json:"tracks"`
 	}
 )
+
+// Len is the number of elements in the collection.
+func (t Tracks) Len() int {
+	return len(t)
+}
+
+// Less reports whether the element with
+// index i should sort before the element with index j.
+func (t Tracks) Less(i int, j int) bool {
+	return t[i].Tags[0] < t[j].Tags[0]
+}
+
+// Swap swaps the elements with indexes i and j.
+func (t Tracks) Swap(i int, j int) {
+	tmp := *t[i]
+	tmp.ID = t[j].ID
+	t[j].ID = t[i].ID
+	t[i] = t[j]
+	t[j] = &tmp
+}
 
 const (
 	rootDir     = "voices/"
@@ -57,7 +80,7 @@ func run() error {
 	}
 
 	cnt := 0
-	tracks := []*Track{}
+	var tracks Tracks
 	for _, filepath := range trackFilePaths {
 		track, err := readTrackJSONData(filepath)
 		if err != nil {
@@ -68,9 +91,7 @@ func run() error {
 		tracks = append(tracks, track)
 	}
 
-	// TODO( ) tracksをタグでソートするようにする。
-	// 現在の実装だと、filepathで上に来るファイルに含まれるタグが上に来るため、
-	// 新しいボイスが増えるたびにタグの順番が変わる可能性がある。
+	sort.Sort(tracks)
 
 	// アーカイブ情報の取得
 	archiveInfo, err := readArchiveInfoJSONData(archiveJSON)
